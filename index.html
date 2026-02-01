@@ -9,7 +9,7 @@
 
       if (!token) {
         location.href =
-          "https://developer-dev-ed.my.salesforce.com/services/oauth2/authorize" +
+          "https://login.salesforce.com/services/oauth2/authorize" +
           "?response_type=token" +
           "&client_id=3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ" +
           "&redirect_uri=https://it-oyj.github.io/super-simple-app/";
@@ -27,25 +27,3 @@
 
   </body>
 </html>
-<script src="https://developer-dev-ed.my.salesforce.com/lightning/lightning.out.latest/index.iife.prod.js"></script>
-
-<script>
-  const token = new URLSearchParams(location.hash.slice(1)).get("access_token");
-
-  if (!token) {
-    location.href =
-      "https://developer-dev-ed.my.salesforce.com/services/oauth2/authorize" +
-      "?response_type=token" +
-      "&client_id=3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ" +
-      "&redirect_uri=https://it-oyj.github.io/super-simple-app/";
-  } else {
-    const lo = document.createElement("lightning-out-application");
-    lo.setAttribute("app-id", "1Usxx0000004C92CAE");
-    lo.setAttribute("components", "c-hello-world");
-    lo.setAttribute(
-      "frontdoor-url",
-      "https://developer-dev-ed.my.salesforce.com/secur/frontdoor.jsp?sid=" + token
-    );
-    document.body.appendChild(lo);
-  }
-</script>
