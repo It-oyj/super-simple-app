@@ -7,36 +7,34 @@
   </head>
   <body>
 
-    <!-- Container for your Lightning component -->
     <div id="lightning"></div>
 
     <script>
-      // Get the Salesforce access token from the URL hash
+      // Get access token from URL hash
       const token = new URLSearchParams(location.hash.slice(1)).get("access_token");
 
       if (!token) {
-        // Redirect to Salesforce for OAuth implicit grant (client-side)
-        const clientId = "3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ";
+        // Redirect to Salesforce OAuth implicit flow
+        const clientId = "3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ"; // Replace with your Connected App Consumer Key
         const redirectUri = encodeURIComponent("https://it-oyj.github.io/super-simple-app/");
         const loginUrl = `https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
         location.href = loginUrl;
       } else {
         // Initialize Lightning Out
         $Lightning.use(
-          "c:YourLightningOutApp", // Replace with your Lightning Out app name
+          "c:LightningOutApp", // Your Lightning Out app name in Salesforce
           function() {
-            // Dynamically create the component
             $Lightning.createComponent(
-              "c:helloWorld", // Your component
-              {}, // Attributes
-              "lightning", // DOM container ID
+              "c:helloWorld",
+              {},
+              "lightning",
               function(cmp) {
-                console.log("Lightning component loaded!", cmp);
+                console.log("Component loaded!", cmp);
               }
             );
           },
-          "https://developer-dev-ed.my.salesforce.com", // Salesforce org URL
-          token // Session ID from OAuth
+          "https://developer-dev-ed.my.salesforce.com",
+          token
         );
       }
     </script>
