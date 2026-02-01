@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lightning Out App</title>
+    <script src="https://developer-dev-ed.my.salesforce.com/lightning/lightning.out.latest.js"></script>
+  </head>
   <body>
 
-    <script src="https://developer-dev-ed.my.salesforce.com/lightning/lightning.out.latest/index.iife.prod.js"></script>
+    <!-- Container for your Lightning component -->
+    <div id="lightning"></div>
 
     <script>
+      // Get the Salesforce access token from the URL hash
       const token = new URLSearchParams(location.hash.slice(1)).get("access_token");
 
       if (!token) {
-        location.href =
-          "https://login.salesforce.com/services/oauth2/authorize" +
-          "?response_type=token" +
-          "&client_id=3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ" +
-          "&redirect_uri=https://it-oyj.github.io/super-simple-app/";
+        // Redirect to Salesforce for OAuth implicit grant (client-side)
+        const clientId = "3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ";
+        const redirectUri = encodeURIComponent("https://it-oyj.github.io/super-simple-app/");
+        const loginUrl = `https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
+        location.href = loginUrl;
       } else {
-        const lo = document.createElement("lightning-out-application");
-        lo.setAttribute("app-id", "1Usxx0000004C92CAE");
-        lo.setAttribute("components", "c-hello-world");
-        lo.setAttribute(
-          "frontdoor-url",
-          "https://developer-dev-ed.my.salesforce.com/secur/frontdoor.jsp?sid=" + token
+        // Initialize Lightning Out
+        $Lightning.use(
+          "c:YourLightningOutApp", // Replace with your Lightning Out app name
+          function() {
+            // Dynamically create the component
+            $Lightning.createComponent(
+              "c:helloWorld", // Your component
+              {}, // Attributes
+              "lightning", // DOM container ID
+              function(cmp) {
+                console.log("Lightning component loaded!", cmp);
+              }
+            );
+          },
+          "https://developer-dev-ed.my.salesforce.com", // Salesforce org URL
+          token // Session ID from OAuth
         );
-        document.body.appendChild(lo);
       }
     </script>
 
