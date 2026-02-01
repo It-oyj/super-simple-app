@@ -1,79 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Lightning Out 2.0 App</title>
+  <title>Super Simple App</title>
 </head>
 <body>
-
-  <div id="lightning"></div>
-
-  <script>
-    // --- CONFIG ---
-    const myDomain = "developer-dev-ed"; // replace with your Salesforce My Domain
-    const lightningOutAppId = "1Usxx0000004C92CAE"; // your Lightning Out 2.0 app ID
-    const clientId = "3MVG9r4iINOFQpJwWJXf2bICtpasys0cVGILWGMa8l45XRnVL_MxQfWYZn0TPo2KEmAv3AU6hQvQRpgbu57rZ"; // Connected App Consumer Key
-    const redirectUri = "https://it-oyj.github.io/super-simple-app/"; // your GitHub Pages URL
-
-    // --- STEP 1: get access token from URL hash ---
-    let accessToken = new URLSearchParams(location.hash.slice(1)).get("access_token");
-
-    if (!accessToken) {
-      // Redirect to Salesforce OAuth implicit flow
-      const oauthUrl = `https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=full`;
-      location.href = oauthUrl;
-    } else {
-      // --- STEP 2: POST to Lightning Out 2.0 endpoint to get Frontdoor URL ---
-      async function getFrontdoorUrl(token) {
-        const url = `https://${myDomain}.my.salesforce.com/services/oauth2/lightningoutsingleaccess`;
-        const body = new URLSearchParams();
-        body.append("access_token", token);
-        body.append("lightning_out_app_id", lightningOutAppId);
-
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: body
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to get Frontdoor URL: " + response.statusText);
-        }
-
-        const frontdoorUrl = await response.text();
-        return frontdoorUrl;
-      }
-
-      getFrontdoorUrl(accessToken).then(frontdoorUrl => {
-        // --- STEP 3: Load Lightning Out 2.0 app ---
-        const script = document.createElement("script");
-        script.src = `https://${myDomain}.my.salesforce.com/lightning/lightning.out.latest.js`;
-        script.onload = () => {
-          $Lightning.use(
-            "c:LightningOutApp", // Replace with your Lightning Out app name in Salesforce
-            function() {
-              $Lightning.createComponent(
-                "c:helloWorld",
-                {},
-                "lightning",
-                function(cmp) {
-                  console.log("Lightning component loaded!", cmp);
-                }
-              );
-            },
-            `https://${myDomain}.my.salesforce.com`, // Salesforce org URL
-            null // No need to pass token; session cookie is set by Frontdoor
-          );
-        };
-        document.body.appendChild(script);
-
-        // Optional: redirect to Frontdoor URL to set cookie if necessary
-        // window.location.href = frontdoorUrl;
-      }).catch(err => {
-        console.error(err);
-        alert("Error initializing Lightning Out 2.0. Check console for details.");
-      });
-    }
-  </script>
+  <h1>Hello 👋</h1>
+  <button onclick="alert('It works!')">Click me</button>
 </body>
 </html>
