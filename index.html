@@ -2,27 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Lightning Out 2.0 Test</title>
+    <title>Lightning Out 2.0</title>
   </head>
 
   <body>
     <h3>HTML loaded</h3>
 
-    <!-- 1️⃣ Load Lightning Out runtime (ONLY this file) -->
-    <script src="https://developer-dev-ed.develop.my.salesforce-com.kk3ytx3olbzh0sopahx9ngq1o.ab.crm.dev/lightning/lightning.out.latest.js"></script>
+    <!-- ✅ CORRECT Lightning Out runtime -->
+    <script src="https://developer-dev-ed.lightning.force.com/lightning/lightning.out.latest.js"></script>
 
-    <!-- 2️⃣ Lightning Out app -->
+    <!-- Lightning Out App -->
     <lightning-out-application
-      frontdoor-url="https://developer-dev-ed.develop.my.salesforce-com.kk3ytx3olbzh0sopahx9ngq1o.ab.crm.dev/secur/frontdoor.jsp?otp=REPLACE_WITH_FRESH_OTP"
+      frontdoor-url="https://developer-dev-ed.lightning.force.com/secur/frontdoor.jsp?otp=REPLACE_WITH_FRESH_OTP"
       app-id="1Usxx0000004C92CAE"
       components="c-hello-world">
     </lightning-out-application>
 
-    <!-- 3️⃣ Your LWC -->
     <c-hello-world></c-hello-world>
 
     <script>
-      console.log("Lightning Out HTML initialized");
+      console.log("Lightning Out initialized");
     </script>
   </body>
 </html>
