@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Lightning Out 2.0</title>
+    <title>Lightning Out 2.0 Test</title>
   </head>
 
   <body>
     <h3>HTML loaded</h3>
 
-    <script>
-      console.log("HTML running");
-    </script>
+    <!-- 1️⃣ Load Lightning Out runtime (ONLY this file) -->
+    <script src="https://developer-dev-ed.develop.my.salesforce-com.kk3ytx3olbzh0sopahx9ngq1o.ab.crm.dev/lightning/lightning.out.latest.js"></script>
 
-
-    <script type="text/javascript" async="" src="https://developer-dev-ed.develop.my.salesforce-com.kk3ytx3olbzh0sopahx9ngq1o.ab.crm.dev:6101/lightning/lightning.out.latest/index.iife.prod.js"></script>
-
+    <!-- 2️⃣ Lightning Out app -->
     <lightning-out-application
-      frontdoor-url="https://developer-dev-ed.develop.my.salesforce-com.kk3ytx3olbzh0sopahx9ngq1o.ab.crm.dev:6101/secur/frontdoor.jsp?otp=00Dxx00TJz2TKYK%21AQEAQKXC4P.Y.jEDJct11TBw3TZ1HDGe0P4EF97GT1pnmuoGIZlN1hPvo6c5flfipvNMoIognYBPTgIaQ46nPWaWWDlySoPN&cshc=x000001X7vVx00TJz2TKYK"
+      frontdoor-url="https://developer-dev-ed.develop.my.salesforce-com.kk3ytx3olbzh0sopahx9ngq1o.ab.crm.dev/secur/frontdoor.jsp?otp=REPLACE_WITH_FRESH_OTP"
       app-id="1Usxx0000004C92CAE"
       components="c-hello-world">
     </lightning-out-application>
 
+    <!-- 3️⃣ Your LWC -->
+    <c-hello-world></c-hello-world>
+
+    <script>
+      console.log("Lightning Out HTML initialized");
+    </script>
   </body>
 </html>
